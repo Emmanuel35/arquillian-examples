@@ -13,18 +13,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Artifact Information  -->
-    <groupId>org.jboss.arquillian.examples</groupId>
     <artifactId>ejb3-openejb</artifactId>
     <name>Arquillian Examples EJB3 OpenEJB Embedded 3.1</name>
     <description>Simple Arquillian EJB3 OpenEJB Embedded 3.1 Project</description>
 
     <!-- Properties -->
     <properties>
-        <version.junit>4.8.2</version.junit>
-        <version.org.jboss.arquillian>1.0.0.Alpha5</version.org.jboss.arquillian>
-        <version.org.apache.openejb_openejb.core>3.1.2</version.org.apache.openejb_openejb.core>
-        <version.org.jboss.ejb3>3.1.4</version.org.jboss.ejb3>
-        <version.javax.enterprise.cdi>1.0-SP4</version.javax.enterprise.cdi>
+        <version.org.apache.openejb_openejb.core>4.7.0</version.org.apache.openejb_openejb.core>
+        <openejb.embedded.version>4.7.0</openejb.embedded.version>
     </properties>
 
 
@@ -33,29 +29,12 @@
         <dependency>
             <groupId>org.jboss.ejb3</groupId>
             <artifactId>jboss-ejb3-api</artifactId>
-            <version>${version.org.jboss.ejb3}</version>
-        </dependency>
-
-        <!-- Test Dependencies -->
-        <dependency>
-            <groupId>org.jboss.arquillian</groupId>
-            <artifactId>arquillian-junit</artifactId>
-            <version>${version.org.jboss.arquillian}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${version.junit}</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- TODO This should not be required. https://jira.jboss.org/browse/ARQ-157 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
-            <version>${version.javax.enterprise.cdi}</version>
             <scope>test</scope>
         </dependency>
 
@@ -64,7 +43,7 @@
     <!-- Profiles -->
     <profiles>
         <profile>
-            <id>openejb-embedded-3</id>
+            <id>openejb-embedded-4</id>
 
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -72,9 +51,9 @@
 
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-openejb-embedded-3.1</artifactId>
-                    <version>${version.org.jboss.arquillian}</version>
+                    <groupId>org.apache.openejb</groupId>
+  					<artifactId>arquillian-openejb-embedded-4</artifactId>
+                    <version>${openejb.embedded.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.openejb</groupId>

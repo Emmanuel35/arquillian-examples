@@ -18,4 +18,15 @@
 -->
 	</jboss:container>	
 
+	<container qualifier="wildfly-8.1.0">
+        <configuration>
+            <property name="jbossHome">target/wildfly-8.1.0.Final</property>
+			<property name="serverConfig">standalone.xml</property>
+			<property name="outputToConsole">true</property>
+
+			<property name="javaVmArguments">-Djboss.socket.binding.port-offset=200 -Xmx256m -XX:MaxPermSize=128m</property>
+			<property name="managementPort">10190</property>
+        </configuration>
+    </container>
+    
 </arquillian>

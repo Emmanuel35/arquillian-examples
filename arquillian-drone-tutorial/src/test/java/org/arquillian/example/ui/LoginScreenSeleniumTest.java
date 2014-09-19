@@ -17,24 +17,28 @@
  */
 package org.arquillian.example.ui;
 
+import static org.junit.Assert.*;
+import static org.jboss.arquillian.graphene.Graphene.*;
+
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.findby.FindByJQuery;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Filters;
 import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import com.thoughtworks.selenium.DefaultSelenium;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 /**
  * @author <a href="http://community.jboss.org/people/dan.j.allen">Dan Allen</a>
@@ -60,21 +64,42 @@ public class LoginScreenSeleniumTest {
     }
     
     @Drone
-    DefaultSelenium browser;
+    private WebDriver browser;
+    
+    @FindBy(id = "login")
+    private WebElement loginButton;
+
+    @FindBy(tagName = "li")                     // 2. injects a first element with given tag name
+    private WebElement facesMessage;
+
+    @FindByJQuery("p:visible")                  // 3. injects an element using jQuery selector
+    private WebElement signedAs;
+
+    @FindBy(css = "input[type=submit]")
+    private WebElement whoAmI;
+    
+    @FindBy                                     // 1. injects an element by default location strategy ("idOrName")
+    private WebElement userName;
+
+    @FindBy
+    private WebElement password;
     
     @ArquillianResource
     URL deploymentUrl;
     
     @Test
     public void should_login_with_valid_credentials() {
-        browser.open(deploymentUrl.toString().replaceFirst("/$", "") + "/login.jsf");
-        
-        browser.type("id=loginForm:username", "user1");
-        browser.type("id=loginForm:password", "demo");
-        browser.click("id=loginForm:login");
-        browser.waitForPageToLoad("15000");
+    	browser.get(deploymentUrl.toExternalForm() + "login.jsf");      // 1. open the tested page
 
-        Assert.assertTrue("User should be logged in!",
-            browser.isElementPresent("xpath=//li[contains(text(),'Welcome')]"));
+        userName.sendKeys("demo");                                      // 3. control the page
+        password.sendKeys("demo");
+
+        guardHttp(loginButton).click();
+
+        assertEquals("Welcome", facesMessage.getText().trim());
+        whoAmI.click();
+        waitAjax().until().element(signedAs).is().present();
+        assertTrue(signedAs.getText().contains("demo"));
+
     }
 }

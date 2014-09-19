@@ -4,7 +4,7 @@ import javax.ejb.EJB;
 
 import junit.framework.Assert;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.examples.quickstart.HelloEJB;
 import org.jboss.arquillian.examples.quickstart.HelloEJBBean;
 import org.jboss.arquillian.junit.Arquillian;
@@ -33,12 +33,10 @@ public class HelloEJBContainerTest {
 	@Deployment
 	public static WebArchive createTestArchive() {
 
-		JavaArchive arch = ShrinkWrap.create(JavaArchive.class, "helloEJB.jar")
-				.addClasses(HelloEJB.class, HelloEJBBean.class)
-				.addManifestResource(EMPTY_BEANS_XML, "beans.xml");
-
 		WebArchive webArchive = ShrinkWrap.create(WebArchive.class, "test.war")
-				.setWebXML("glassfish-remote-3/test-web.xml").addLibrary(arch);
+				.setWebXML("glassfish-remote-3/test-web.xml")
+				.addClasses(HelloEJB.class, HelloEJBBean.class)
+				.addAsManifestResource(EMPTY_BEANS_XML, "beans.xml");
 
 		return webArchive;
 	}
@@ -54,7 +52,7 @@ public class HelloEJBContainerTest {
 //	 public static JavaArchive createTestArchive() {
 //	 JavaArchive arch = ShrinkWrap.create(JavaArchive.class, "helloEJB.jar")
 //	 .addClasses(HelloEJB.class, HelloEJBBean.class)
-//	 .addManifestResource(EMPTY_BEANS_XML, "beans.xml");
+//	 .addAsManifestResource(EMPTY_BEANS_XML, "beans.xml");
 //	
 //	 System.out.println("### building " + arch.getName());
 //	

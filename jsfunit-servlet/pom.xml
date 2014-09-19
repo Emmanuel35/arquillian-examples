@@ -4,7 +4,13 @@
 
    <modelVersion>4.0.0</modelVersion>
 
-   <groupId>org.jboss.arquillian.examples</groupId>
+  <!-- Parent -->
+    <parent>
+        <groupId>org.jboss.arquillian.examples</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    
    <artifactId>jsfunit-servlet</artifactId>
    <version>1.0.0-SNAPSHOT</version>
    <packaging>jar</packaging>
@@ -12,31 +18,17 @@
    <description>Examples that demonstrate how to test JSF pages using Arquillian and JSFUnit in a Servlet environment</description>
 
    <properties>
-      <version.arquillian>1.0.0.Alpha5</version.arquillian>
       <version.jetty>8.0.0.M1</version.jetty>
       <version.tomcat>6.0.29</version.tomcat>
-      <version.weld-servlet>1.1.0.Beta1</version.weld-servlet>
+      <version.arquillian.jsfunit>1.0.0.Alpha4.SP1</version.arquillian.jsfunit>
+      <version.arquillian.jetty-embedded>1.0.0.CR2</version.arquillian.jetty-embedded>
+      <version.tomcat-embedded-6>1.0.0.CR7</version.tomcat-embedded-6>
    </properties>
-
-   <repositories>
-      <repository>
-         <id>jboss-public-repository</id>
-         <name>JBoss Repository</name>
-         <url>http://repository.jboss.org/nexus/content/groups/public</url>
-         <releases>
-            <updatePolicy>never</updatePolicy>
-         </releases>
-         <snapshots>
-            <enabled>false</enabled>
-         </snapshots>
-      </repository>
-   </repositories>
 
    <dependencies>
       <dependency>
          <groupId>org.jboss.weld.servlet</groupId>
          <artifactId>weld-servlet</artifactId>
-         <version>${version.weld-servlet}</version>
       </dependency>
       <dependency>
          <groupId>org.hibernate</groupId>
@@ -44,6 +36,7 @@
          <version>4.0.0.GA</version>
          <scope>test</scope>
       </dependency>
+      
       <!-- FIXME Java APIs should be grouped by container profile -->
       <dependency>
          <groupId>javax.servlet.jsp</groupId>
@@ -57,20 +50,11 @@
          <version>2.0.3</version>
       </dependency>
       <dependency>
-         <groupId>org.jboss.arquillian</groupId>
-         <artifactId>arquillian-junit</artifactId>
-         <version>${version.arquillian}</version>
-      </dependency>
-      <dependency>
          <groupId>org.jboss.arquillian.framework</groupId>
          <artifactId>arquillian-framework-jsfunit</artifactId>
-         <version>${version.arquillian}</version>
+         <version>${version.arquillian.jsfunit}</version>
       </dependency>
-      <dependency>
-         <groupId>junit</groupId>
-         <artifactId>junit</artifactId>
-         <version>4.8.2</version>
-      </dependency>
+
    </dependencies>
 
    <profiles>
@@ -83,7 +67,7 @@
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
                <artifactId>arquillian-jetty-embedded-7</artifactId>
-               <version>${version.arquillian}</version>
+               <version>${version.arquillian.jetty-embedded}</version>
                <scope>test</scope>
             </dependency>
             <dependency>
@@ -144,7 +128,7 @@
             <dependency>
                <groupId>org.jboss.arquillian.container</groupId>
                <artifactId>arquillian-tomcat-embedded-6</artifactId>
-               <version>${version.arquillian}</version>
+               <version>${version.tomcat-embedded-6}</version>
                <scope>test</scope>
             </dependency>
             <dependency>

@@ -4,7 +4,7 @@ import javax.inject.Inject;
 
 import junit.framework.Assert;
 
-import org.jboss.arquillian.api.Deployment;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.examples.quickstart.HelloWorld;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -28,7 +28,7 @@ public class HelloWorldContainerTest {
 	public static JavaArchive createTestArchive() {
 		JavaArchive arch = ShrinkWrap.create(JavaArchive.class,
 				"helloWorld.jar").addClasses(HelloWorld.class)
-				.addManifestResource(EMPTY_BEANS_XML, "beans.xml");
+				.addAsManifestResource(EMPTY_BEANS_XML, "beans.xml");
 
 		System.out.println("### building " + arch.getName());
 

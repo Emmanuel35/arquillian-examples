@@ -20,13 +20,10 @@
 
     <!-- Properties -->
     <properties>
-        <version.junit>4.8.2</version.junit>
-
-        <!-- Versioning -->
-        <version.org.jboss.arquillian>1.0.0.Alpha5</version.org.jboss.arquillian>
 
         <!-- The target version of AS to be used -->
         <version.org.jboss.jbossas>6.0.0.Final</version.org.jboss.jbossas>
+        <version.jbossas.embedded>1.0.0.CR3</version.jbossas.embedded>
 
         <!-- JBOSS_HOME (We'll unpack into here -->
         <JBOSS_HOME>${project.build.directory}/jboss-${version.org.jboss.jbossas}</JBOSS_HOME>
@@ -41,20 +38,9 @@
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-jbossas-embedded-6</artifactId>
-            <version>${version.org.jboss.arquillian}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian</groupId>
-            <artifactId>arquillian-junit</artifactId>
-            <version>${version.org.jboss.arquillian}</version>
+            <version>${version.jbossas.embedded}</version>
         </dependency>
 
-        <!-- JUnit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${version.junit}</version>
-        </dependency>
 
         <!-- JBossAS -->
         <dependency>
